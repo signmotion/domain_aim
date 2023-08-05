@@ -51,7 +51,20 @@ class Appraiser {
         : r;
   }
 
-  Grade appraiseTld(String tld) => data[tld] ?? Grade.unrated;
+  Grade? appraiseTld(String tld) => data[tld];
+
+  Grade? appraiseDomain(String domain) {
+    final splitted = domain.split('.');
+    for (var i = 0; i < splitted.length; ++i) {
+      final s = splitted.sublist(i).join('.');
+      final r = appraiseTld(s);
+      if (r != null) {
+        return r;
+      }
+    }
+
+    return null;
+  }
 
   @override
   String toString() => '${suitability.name} $data';
