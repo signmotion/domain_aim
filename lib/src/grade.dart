@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
-enum Grade implements Comparable<int> {
+/// When sorting: the best ones are the first ones.
+enum Grade implements Comparable<Grade> {
   undefined(number: 0),
 
   no(number: 1),
@@ -16,7 +17,7 @@ enum Grade implements Comparable<int> {
   final int number;
 
   @override
-  int compareTo(int other) => number.compareTo(other);
+  int compareTo(Grade other) => -number.compareTo(other.number);
 
   @override
   String toString() => name;

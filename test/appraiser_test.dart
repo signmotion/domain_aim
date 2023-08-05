@@ -37,7 +37,10 @@ void main() {
       final r = appraiser.filter([Grade.YES, Grade.Yes, Grade.yes]);
       expect(r.length, 94);
 
-      // TODO Group by grades and sort by grade & TLD.
+      // check: grouped by grades and sorted by decrease grade & increase TLD
+      final sorted =
+          Map.fromEntries(r.entries.toList()..sort(compareEntryEndingsGrades));
+      expect(sorted, equals(r));
     });
   });
 }

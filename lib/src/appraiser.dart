@@ -20,10 +20,21 @@ class Appraiser {
       );
 
   /// TLDs with defined grades.
-  EndingsGrade filter(List<Grade> grades) => <String, Grade>{
-        for (final entry in data.entries)
-          if (grades.contains(entry.value)) entry.key: data[entry.key]!
-      };
+  /// If [sort] is `true` then grouped by grades and sorted by decrease
+  /// grades & abc TLD.
+  EndingsGrade filter(
+    List<Grade> grades, {
+    bool sort = true,
+  }) {
+    final r = <String, Grade>{
+      for (final entry in data.entries)
+        if (grades.contains(entry.value)) entry.key: data[entry.key]!
+    };
+
+    return sort
+        ? Map.fromEntries(r.entries.toList()..sort(compareEntryEndingsGrades))
+        : r;
+  }
 
   Grade appraiseTld(String tld) => data[tld] ?? Grade.undefined;
 
