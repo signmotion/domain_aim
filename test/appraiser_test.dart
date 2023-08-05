@@ -16,19 +16,25 @@ void main() {
     });
 
     test('empty TLD', () {
-      expect(appraiser.appraiseTld(''), Grade.undefined);
-      expect(appraiser.appraiseTld('    '), Grade.undefined);
+      expect(appraiser.appraiseTld(''), Grade.unrated);
+      expect(appraiser.appraiseTld('    '), Grade.unrated);
     });
 
     test('undefined TLD', () {
-      expect(appraiser.appraiseTld('someundefinedtld'), Grade.undefined);
-      expect(appraiser.appraiseTld('z'), Grade.undefined);
-      expect(appraiser.appraiseTld('@'), Grade.undefined);
+      expect(appraiser.appraiseTld('someundefinedtld'), Grade.unrated);
+      expect(appraiser.appraiseTld('z'), Grade.unrated);
+      expect(appraiser.appraiseTld('@'), Grade.unrated);
     });
 
     test('composite TLD', () {
       expect(appraiser.appraiseTld('co.uk'), Grade.No);
       expect(appraiser.appraiseTld('com.mx'), Grade.yes);
+    });
+
+    test('domain name with TLD', () {
+      expect(appraiser.appraiseTld('antonina.art'), Grade.unrated);
+      expect(appraiser.appraiseTld('radmila.bio.com'), Grade.unrated);
+      expect(appraiser.appraiseTld('vadym.kyiv.biz'), Grade.unrated);
     });
   });
 
@@ -41,6 +47,28 @@ void main() {
       final sorted =
           Map.fromEntries(r.entries.toList()..sort(compareEntryEndingsGrades));
       expect(sorted, equals(r));
+    });
+
+    test('all fit, unfit, unrated and rated TLDs', () {
+      expect(appraiser.fit.length, 94);
+      expect(appraiser.unfit.length, 270);
+      expect(appraiser.unrated.length, 0);
+      expect(appraiser.rated.length, 364);
+
+      expect(
+        appraiser.fit.length + appraiser.unfit.length,
+        appraiser.rated.length,
+      );
+      expect(
+        appraiser.fit.length +
+            appraiser.unfit.length +
+            appraiser.unrated.length,
+        appraiser.data.length,
+      );
+      expect(
+        appraiser.unrated.length + appraiser.rated.length,
+        appraiser.data.length,
+      );
     });
   });
 }

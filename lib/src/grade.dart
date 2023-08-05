@@ -2,7 +2,7 @@
 
 /// When sorting: the best ones are the first ones.
 enum Grade implements Comparable<Grade> {
-  undefined(number: 0),
+  unrated(number: 0),
 
   no(number: 1),
   No(number: 2),

@@ -19,6 +19,21 @@ class Appraiser {
         personal_business_car.endingsGrade,
       );
 
+  EndingsGrade get fit => filter([Grade.YES, Grade.Yes, Grade.yes]);
+
+  EndingsGrade get unfit => filter([Grade.NO, Grade.No, Grade.no]);
+
+  EndingsGrade get unrated => filter([Grade.unrated]);
+
+  EndingsGrade get rated => filter([
+        Grade.YES,
+        Grade.Yes,
+        Grade.yes,
+        Grade.NO,
+        Grade.No,
+        Grade.no,
+      ]);
+
   /// TLDs with defined grades.
   /// If [sort] is `true` then grouped by grades and sorted by decrease
   /// grades & abc TLD.
@@ -36,7 +51,7 @@ class Appraiser {
         : r;
   }
 
-  Grade appraiseTld(String tld) => data[tld] ?? Grade.undefined;
+  Grade appraiseTld(String tld) => data[tld] ?? Grade.unrated;
 
   @override
   String toString() => '${suitability.name} $data';
