@@ -1,7 +1,7 @@
 name: domain_aim
-description: What purposes a TLD (Top Level Domain) can be used for. Appraises the domain name.
+description: >-
+  What purposes a TLD (Top Level Domain) can be used for. Appraises the domain name.
 repository: https://github.com/signmotion/domain_aim
-
 topics:
   - domain
   - names
@@ -9,6 +9,7 @@ topics:
   - internet
   - tools
 
+# Compatible with https://semver.org
 # Format:
 #   version: major.minor.patch
 # You can calculate the number version code by this formula:
@@ -21,4 +22,4 @@ environment:
 
 dev_dependencies:
   lints: ^3.0.0
-  test: ^1.25.2
+  test: ^1.25.4
